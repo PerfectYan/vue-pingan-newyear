@@ -3,7 +3,7 @@
         <div class="logo"></div>
         <div class="top-cont">
             <div class="camara">
-                <input class="file" type="file">
+                <input ref="uploadFile" @change="change($event)" class="file" type="file" name="file" accept="image/*">
             </div>
             <strong>输入您的祝福语吧</strong>
             <div class="input-wrap">
@@ -33,7 +33,36 @@
         },
         methods: {
             goResult() {
-                this.$router.push('/result');
+                let file = this.$refs.uploadFile.files;
+                if (file.length == 0) {
+                    return
+                 }
+                if (file[0].type.match(/png|jpg|jpeg/) == null) {
+                    return
+                }
+                if (file[0].size / (1024 * 1024) > 3) {
+                  // 大于3M
+                  return
+                }
+
+                const formData = new FormData();
+                formData.append('file', this.$refs.uploadFile.files[0])
+                this.Axios.post('/upload', formData,{
+                    headers: {"Content-Type": "multipart/form-data"}
+                }).then(() =>{
+                    this.$router.push('/result');
+                }).catch(error=>{
+                })
+            },
+            change(e){
+                var file = e.target.files[0];
+                console.log(file)
+                var reader = new FileReader();
+                var that = this;
+                reader.readAsDataURL(file);
+                reader.onload = function(e) {
+                    that.avatar = this.result
+                }
             }
         }
     }
@@ -73,7 +102,7 @@
     .top-cont {
         position: absolute;
         left: 50%;
-        top: 1rem;
+        top: 0.5rem;
         z-index: 4;
         margin: 0 0 0 -3.47rem;
         width: 6.94rem;
@@ -101,7 +130,7 @@
         text-align: center;
         width: 2.65rem;
         height: 1rem;
-        line-height: 0.95rem;
+        line-height: 0.9rem;
         position: absolute;
         left: 50%;
         top: 11rem;

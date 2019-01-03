@@ -19,55 +19,39 @@
         <div class="gold-l"></div>
         <div class="gold-m"></div>
         <div class="gold-r"></div>
-        <div class="btn" @click="celebrateNearYear">开始拜年</div>
+        <div class="btn" @click="showModal">开始拜年</div>
+
+       <!-- 选日期弹窗 -->
+        <SelectTime v-show="isShowModal"></SelectTime>
+
     </div>
 </template>
 
 <script>
     // @ is an alias to /src
     import Header from '@/components/Header.vue'
+    import SelectTime from '@/views/Select.vue'
 
     export default {
         name: 'Loading',
         components: {
-            Header
+            Header, SelectTime
         },
         data() {
             return {
-                hasLatch: true
+                hasLatch: true,
+                isShowModal: false,
             }
         },
         methods: {
-            celebrateNearYear() {
-                this.$router.push('/select');
-            }
+             showModal(){
+                this.isShowModal = true;
+            },         
         }
     }
 </script>
 
 <style scoped lang="scss">
-    html, body{
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow: hidden;
-    }
-    .content{
-        position: relative;
-        height: 100%;
-        background: #832621;
-        text-align: center;
-    }
-    .content .logo{
-        width: 2.32rem;
-        height: 0.4rem;
-        position: absolute;
-        right: 0.32rem;
-        top: 0.3rem;
-        background:url('../assets/images/img/LOGO.png') no-repeat center;
-        background-size: contain;
-
-    }
     .top-cont{
         width: 5.65rem;
         height: 5.72rem;
@@ -158,7 +142,7 @@
         text-align: center;
         width:2.65rem;
         height: 1rem;
-        line-height: 0.95rem;
+        line-height: 0.9rem;
         position: absolute;
         left: 50%;
         top: 11rem;

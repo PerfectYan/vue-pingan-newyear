@@ -100,7 +100,7 @@ export default {
         text-align: center;
         width:2.65rem;
         height: 1rem;
-        line-height: 0.95rem;
+        line-height: 0.9rem;
         position: absolute;
         left: 50%;
         top: 11rem;
@@ -108,14 +108,13 @@ export default {
         margin: 0 0 0 -1.325rem;
         background:url('../assets/images/img/btn.png') no-repeat center;
         background-size: contain; 
-    }
-		
+    }	
 	.top-cont strong{
 		width: 6rem;
 		display: block;
 		font-size: 0.5rem;
 		color: #690004;
-		margin: 0.3rem 0 0.1rem;
+		margin: 0.3rem 0 0;
 
 	}
 	.btm-des-wrap{
@@ -151,7 +150,7 @@ export default {
 	.des-wrap .icon2{
 	    position: absolute;
 	    right: -0.1rem;
-	    bottom: -0.07rem;
+	    bottom: 0;
 	    width: 0.25rem;
 	    height: 0.3rem;
 	    border-right: 2px solid #690004;
@@ -167,7 +166,7 @@ export default {
 	}
 	.top-bg{
 		height: 100%;
-		background:url(../assets/images/img/WechatIMG149.png) no-repeat center top;
+		background:url(../assets/images/img/cs-bg.jpg) no-repeat center top;
 		background-size: contain; 
 	}
 	.save{

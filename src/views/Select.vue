@@ -1,14 +1,7 @@
 <template>
-    <div>
-        <div class="content">
-            <div class="logo"></div>
-            <div class="caishen"></div>
-            <div class="man"></div>
-            <div class="woman"></div>
-            <div class="botao"></div>
-
-        </div>
+    <div>      
         <div class="mask">
+            <div class="logo"></div> 
             <div class="top-cont">
                 <div class="des-wrap">
                     <p>新的一年 </p>
@@ -25,24 +18,11 @@
                     <div class="year">2019</div>
                     <div>己亥猪年</div>
                 </div>
-                <div class="time">
-                    <select id="select-date">
-                        <option value="1">正月.初一</option>
-                        <option value="2">正月.初二</option>
-                        <option value="3">正月.初三</option>
-                        <option value="4">正月.初四</option>
-                        <option value="5">正月.初五</option>
-                        <option value="6">正月.初六</option>
-                        <option value="7">正月.初七</option>
-                        <option value="8">正月.初八</option>
-                        <option value="9">正月.初九</option>
-                        <option value="10">正月.初十</option>
-                    </select>
-                </div>
-                <select id="select-sex">
-                    <option value="1">男</option>
-                    <option value="2">女</option>
-                </select>
+                <div id="select-date">正月.初一</div>
+                <div id="select-sex">男</div>
+                <!-- <input id="select-date" type="text" value=""  placeholder="日期" /> 
+                <input id="select-sex" type="text"  placeholder="性别" />  -->
+
             </div>
             <div class="btn" @click="goGreeting">确认</div>
         </div>
@@ -50,8 +30,32 @@
 </template>
 
 <script>
+   import Vue from 'vue'
     // @ is an alias to /src
-    import Header from '@/components/Header.vue'
+    import Header from '@/components/Header.vue';
+
+    const data1 = [
+        {"name": "正月.初一"},
+        {"name": "正月.初二"},
+        {"name": "正月.初三"},
+        {"name": "正月.初四"},
+        {"name": "正月.初五"},
+        {"name": "正月.初六"},
+        {"name": "正月.初七"},
+        {"name": "正月.初八"},   
+        {"name": "正月.初九"},
+        {"name": "正月.初十"},
+        {"name": "正月.初十一"},
+        {"name": "正月.初十二"},
+        {"name": "正月.初十三"},
+        {"name": "正月.初十四"},
+        {"name": "正月.初十五"},  
+        ];
+
+    const data2 = [
+        {"sex": "男"},
+        {"sex": "女"},     
+        ];    
 
     export default {
         name: 'Loading',
@@ -67,25 +71,59 @@
             goGreeting() {
                 this.$router.push('/greetings');
             }
+        },
+        mounted(){
+            //这样可以，nextTick里面的代码会在DOM更新后执行
+            Vue.nextTick(function(){
+                var modal = new LArea();
+                modal.init({
+                    'trigger': '#select-date', //触发选择控件的文本框，同时选择完毕后name属性输出到该位置
+                    //'valueTo': '#value3', //选择完毕后id属性输出到该位置
+                    'keys': {
+                        name: 'name'
+                    }, //绑定数据源相关字段 id对应valueTo的value属性输出 name对应trigger的value属性输出
+                    'type': 1, //数据源类型
+                    'data': data1 //数据源
+                });
+                // modal.value=["正月.初一",'', ''];//控制初始位置，注意：该方法并不会影响到input的value
+
+                var modal2 = new LArea();
+                modal2.init({
+                    'trigger': '#select-sex', //触发选择控件的文本框，同时选择完毕后name属性输出到该位置
+                    //'valueTo': '#value3', //选择完毕后id属性输出到该位置
+                    'keys': {
+                        name: 'sex'
+                    }, //绑定数据源相关字段 id对应valueTo的value属性输出 name对应trigger的value属性输出
+                    'type': 1, //数据源类型
+                    'data': data2 //数据源
+                });
+               // modal2.value=["男",'', ''];//控制初始位置，注意：该方法并不会影响到input的value
+
+            })
+           
         }
 
     }
 </script>
 
 <style scoped lang="scss">
-    select {
+    ::-webkit-input-placeholder {
+         color: #F8C488;
+    }
+    input {
         background: none;
         border: none;
         outline: none;
-        appearance: none;
-        -moz-appearance: none; /* Firefox */
-        -webkit-appearance: none; /* Safari 和 Chrome */
+        //color: #F8C488;
+        font-size: 0.36rem;
+        color:transparent;
+        text-shadow:0 0 0 #F8C488;
     }
 
     #select-date {
         position: absolute;
         width: 2rem;
-        left: 39%;
+        left: 34%;
         top: 2.5rem;
         font-size: 0.36rem;
         color: #F8C488;
@@ -94,39 +132,11 @@
     #select-sex {
         position: absolute;
         width: 2rem;
-        left: 50%;
+        left: 35%;
         top: 3.78rem;
         font-size: 0.36rem;
         color: #F8C488;
     }
-
-    html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow: hidden;
-        text-align: center;
-    }
-
-    .content {
-        position: relative;
-        height: 100%;
-        background: #832621;
-        text-align: center;
-    }
-
-    .content .logo {
-        width: 2.32rem;
-        height: 0.4rem;
-        position: absolute;
-        right: 0.32rem;
-        top: 0.3rem;
-        z-index: 12;
-        background: url('../assets/images/img/LOGO.png') no-repeat center;
-        background-size: contain;
-
-    }
-
     .top-cont {
         position: relative;
         z-index: 11;
@@ -230,7 +240,7 @@
         text-align: center;
         width: 2.65rem;
         height: 1rem;
-        line-height: 0.85rem;
+        line-height: 0.9rem;
         position: absolute;
         left: 50%;
         top: 10.4rem;
@@ -285,12 +295,12 @@
         position: relative;
         z-index: 1000;
         font-size: 0.22rem;
-        padding-top: 0.95rem;
+        padding-top: 1rem;
     }
 
     .year {
         font-size: 0.52rem;
-        margin-bottom: -0.15rem;
+        margin-bottom: -0.1rem;
     }
 
     #select_dummy {
