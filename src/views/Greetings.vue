@@ -46,8 +46,14 @@
                 }
 
                 const formData = new FormData();
-                formData.append('file', this.$refs.uploadFile.files[0])
-                this.Axios.post('/upload', formData,{
+                formData.append('file', this.$refs.uploadFile.files[0]);
+                console.log(this.avatar);
+                let params = {
+                    imgfile: this.avatar,
+                    gender: '1'
+                };
+
+                this.Axios.post('/uploadImg', params, {
                     headers: {"Content-Type": "multipart/form-data"}
                 }).then(() =>{
                     this.$router.push('/result');
