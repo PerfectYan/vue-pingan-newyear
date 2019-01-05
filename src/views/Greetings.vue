@@ -133,7 +133,8 @@
                 };
 
                 getPosters(params).then(res=>{
-                    console.log(res);
+                    localStorage.setItem('img_path', res.data.content.img_path);
+                    this.$router.push('/result');
                 }).catch(error => {
                     let message = error && error.data && error.data.message ? error.data.message : '系统繁忙，请稍后重试'
                     this.showToast(message);

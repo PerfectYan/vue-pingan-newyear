@@ -1,26 +1,26 @@
 <template>
     <div class="content">
         <div class="logo"></div>
-        <div class="top-cont">   
+        <div class="top-cont">
 			<div class="top-bg"></div>
-			<div :class="cls" class="person" :style="{backgroundImage: `url(${src})`}" ></div>
+			<div :class="cls" class="person" :style="{backgroundImage: `url(${img_path})`}" ></div>
 			<div class="gold"></div>
 			<div class="btm-des-wrap">
 				<strong>{{ date ||  '除夕夜' }}</strong>
 				<p class="font26">健康行大运</p>
-				<p class="wechat-id">微信ID：xxx</p>							
+				<p class="wechat-id">微信ID：xxx</p>
 				 <div v-show="!!bless" class="des-wrap">
 				    <div class="bless">{{ bless }}</div>
 				    <span class="icon icon1"></span>
 				    <span class="icon icon2"></span>
 				</div>
-				
-			</div>				
+
+			</div>
         </div>
 
         <div class="botao"></div>
         <div class="btn">开始步步生财</div>
-    </div>	
+    </div>
 </template>
 
 <script>
@@ -34,10 +34,6 @@ export default {
   },
   computed:{
     cls(){
-	// 	localStorage.setItem('uploadData', JSON.stringify( {
-    //     "pic_type": 3,
-    //     "img_path": "https://facefusion-1254418846.cos.ap-guangzhou.myqcloud.com/qc_100770_144325_10_1546663293624172492.png"
-    // }));
 		let uploadData = localStorage.getItem('uploadData');
 		if(uploadData){
 			uploadData = JSON.parse(uploadData);
@@ -61,7 +57,7 @@ export default {
 		}else{
 			return ''
 		}
-		
+
 	}
   },
   data() {
@@ -70,12 +66,12 @@ export default {
 	  show: false,
 	  bless: '',
 	  date: '',
-	  src: require('../assets/images/img/step5-women.png')
     }
   },
   mounted(){
 	  this.bless = localStorage.getItem('bless');
 	  this.date =  localStorage.getItem('date');
+	  this.img_path = localStorage.getItem('img_path')
   }
 }
 </script>
@@ -84,8 +80,8 @@ export default {
   html, body{
         margin: 0;
         padding: 0;
-        height: 100%;    
-        overflow: hidden; 
+        height: 100%;
+        overflow: hidden;
     }
 	p{
 		 margin: 0;
@@ -104,7 +100,7 @@ export default {
         right: 0.32rem;
         top: 0.3rem;
         background:url('../assets/images/img/LOGO.png') no-repeat center;
-        background-size: contain; 
+        background-size: contain;
 
     }
     .top-cont{
@@ -128,7 +124,7 @@ export default {
         bottom: 0rem;
         z-index: 3;
         background:url(../assets/images/img/step4-btmbg.png) no-repeat center;
-        background-size: contain; 
+        background-size: contain;
 
     }
     .btn{
@@ -145,8 +141,8 @@ export default {
         z-index: 4;
         margin: 0 0 0 -1.325rem;
         background:url('../assets/images/img/btn.png') no-repeat center;
-        background-size: contain; 
-    }	
+        background-size: contain;
+    }
 	.top-cont strong{
 		width: 6rem;
 		display: block;
@@ -166,7 +162,7 @@ export default {
 		font-size: 0.24rem;
 		color: #690004;
 	}
-	
+
 	.des-wrap{
 	    position: relative;
 		max-width: 4.4rem;
@@ -175,8 +171,8 @@ export default {
 	}
 	.des-wrap .bless{
 	    font-size: 0.22rem;
-		line-height: 0.5rem;  
-		color: #690004;     
+		line-height: 0.5rem;
+		color: #690004;
 	}
 	.des-wrap .icon1{
 	    position: absolute;
@@ -207,7 +203,7 @@ export default {
 	.top-bg{
 		height: 100%;
 		background:url(../assets/images/img/cs-bg.jpg) no-repeat center top;
-		background-size: contain; 
+		background-size: contain;
 	}
 	.save{
 		font-size: 0.24rem;
@@ -222,8 +218,8 @@ export default {
 		right: -0.3rem;
 		width: 3.2rem;
 		height: 8.12rem;
-		background-repeat: no-repeat; 
-		background-position: left top; 
+		background-repeat: no-repeat;
+		background-position: left top;
         background-size: contain;
 	}
 	.man_xifu{
@@ -247,7 +243,7 @@ export default {
 		width: 3.78rem;
 	    height: 1.85rem;
 		background:url('../assets/images/img/step5-gold.png') no-repeat center top;
-		background-size: contain; 
+		background-size: contain;
 	}
 
 </style>
