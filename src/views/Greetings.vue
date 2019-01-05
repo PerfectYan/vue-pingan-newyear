@@ -7,68 +7,103 @@
             </div>
             <strong>输入您的祝福语吧</strong>
             <div class="input-wrap">
-                <input maxlength="20" placeholder="如: 祝您新的一年" type="text">
+                <input v-model="bless" maxlength="20" placeholder="如: 祝您新的一年" type="text">
                 <div class="input-icon"></div>
             </div>
         </div>
 
         <div class="botao"></div>
         <div class="btn" @click="goResult">生成祝福</div>
+
+        <Toast v-if="isShowToast" :content="content"></Toast>
+
     </div>
 </template>
 
 <script>
     // @ is an alias to /src
     import Header from '@/components/Header.vue'
+    import Toast from '@/components/toast.vue'
+    import { upload } from '@/api/'
 
     export default {
         name: 'Loading',
         components: {
-            Header
+            Header, Toast
         },
         data() {
             return {
-                hasLatch: true
+                hasLatch: true,
+                isShowToast: false,
+                content: '',
+                bless: ''
             }
         },
+        mounted(){
+
+        },
         methods: {
+            showToast(content){
+              this.isShowToast =  true;  
+              this.content = content;           
+            },
+            hideToast(){
+                 setTimeout(() => {
+                  this.isShowToast =  false;
+              }, 1500);
+            },
             goResult() {
-                let file = this.$refs.uploadFile.files;
+                var file = this.$refs.uploadFile.files;
                 if (file.length == 0) {
+                    this.showToast('请上传图片')
+                    this.hideToast();
                     return
                  }
                 if (file[0].type.match(/png|jpg|jpeg/) == null) {
+                    this.showToast('不支持改格式的文件')
+                    this.hideToast();
                     return
                 }
                 if (file[0].size / (1024 * 1024) > 3) {
                   // 大于3M
+                  this.showToast('您上传的图片超过3M，请重新选择图片')
+                  this.hideToast();
                   return
                 }
 
-                const formData = new FormData();
-                formData.append('file', this.$refs.uploadFile.files[0]);
-                console.log(this.avatar);
-                let params = {
-                    imgfile: this.avatar,
-                    gender: '1'
-                };
+                this.showToast('上传中...');
 
-                this.Axios.post('/uploadImg', params, {
-                    headers: {"Content-Type": "multipart/form-data"}
-                }).then(() =>{
-                    this.$router.push('/result');
-                }).catch(error=>{
-                })
+                const formData = new FormData();
+                formData.append('imgfile', this.$refs.uploadFile.files[0]);
+                formData.append('gender', localStorage.getItem('sex'));
+                formData.append('year_date', localStorage.getItem('date'));
+                upload(formData).then(res=>{
+                   if(typeof res.data === 'string'){ // 
+                     this.showToast('您上传的照片没有扫描到人脸，请重新选择包含人脸的照片');
+                     this.hideToast();
+                   }else if(res.data.code === 200){
+                     this.showToast('上传成功');
+                     this.hideToast();
+                     this.bless && localStorage.setItem('bless', this.bless);
+                     localStorage.setItem('uploadData', JSON.stringify(res.data.content)); // 1汉服男 2中山装男 3汉服女 4旗袍女 
+                     setTimeout(()=>{                        
+                         this.$router.push('/result');
+                     }, 2000)
+                   }
+                }).catch(error=>{     
+                    this.showToast(error.message);
+                    this.hideToast();  
+                })                         
             },
-            change(e){
-                var file = e.target.files[0];
-                console.log(file)
-                var reader = new FileReader();
-                var that = this;
-                reader.readAsDataURL(file);
-                reader.onload = function(e) {
-                    that.avatar = this.result
-                }
+            change(e){               
+                // var file = e.target.files[0];
+                // console.log(file)
+                // var reader = new FileReader();
+                // var that = this;
+                // reader.readAsDataURL(file);
+                // reader.onload = function(e) {
+                //     that.avatar = this.result
+                // }
             }
         }
     }
@@ -139,7 +174,7 @@
         line-height: 0.9rem;
         position: absolute;
         left: 50%;
-        top: 11rem;
+        bottom: 1.4rem;
         z-index: 4;
         margin: 0 0 0 -1.325rem;
         background: url('../assets/images/img/btn.png') no-repeat center;

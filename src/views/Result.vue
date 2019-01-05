@@ -3,16 +3,14 @@
         <div class="logo"></div>
         <div class="top-cont">   
 			<div class="top-bg"></div>
-			<div class="person"></div>
+			<div :class="cls" class="person" :style="{backgroundImage: `url(${src})`}" ></div>
 			<div class="gold"></div>
 			<div class="btm-des-wrap">
-				<strong>除夕夜</strong>
+				<strong>{{ date ||  '除夕夜' }}</strong>
 				<p class="font26">健康行大运</p>
-				<p class="wechat-id">微信ID：xxx</p>
-				
-				 <div class="des-wrap">
-				    <p>新的一年 </p>
-				    <p>平步青云,步步高升</p>
+				<p class="wechat-id">微信ID：xxx</p>							
+				 <div v-show="!!bless" class="des-wrap">
+				    <div class="bless">{{ bless }}</div>
 				    <span class="icon icon1"></span>
 				    <span class="icon icon2"></span>
 				</div>
@@ -34,10 +32,50 @@ export default {
   components: {
     Header
   },
+  computed:{
+    cls(){
+	// 	localStorage.setItem('uploadData', JSON.stringify( {
+    //     "pic_type": 3,
+    //     "img_path": "https://facefusion-1254418846.cos.ap-guangzhou.myqcloud.com/qc_100770_144325_10_1546663293624172492.png"
+    // }));
+		let uploadData = localStorage.getItem('uploadData');
+		if(uploadData){
+			uploadData = JSON.parse(uploadData);
+			let { pic_type, img_path } = uploadData;
+			this.src = img_path;
+			// 1汉服男 2中山装男 3汉服女 4旗袍女
+			switch(pic_type){
+				case  1:
+				return 'man_hanfu'
+				   break;
+				case  2:
+				return 'man_xifu'
+				   break;
+				case  3:
+				return 'women_hanfu'
+				   break;
+				case  4:
+				return 'women_qipao'
+				   break;
+			}
+		}else{
+			return ''
+		}
+		
+	}
+  },
   data() {
     return {
-      hasLatch: true
+	  hasLatch: true,
+	  show: false,
+	  bless: '',
+	  date: '',
+	  src: require('../assets/images/img/step5-women.png')
     }
+  },
+  mounted(){
+	  this.bless = localStorage.getItem('bless');
+	  this.date =  localStorage.getItem('date');
   }
 }
 </script>
@@ -103,7 +141,7 @@ export default {
         line-height: 0.9rem;
         position: absolute;
         left: 50%;
-        top: 11rem;
+        bottom: 1.4rem;
         z-index: 4;
         margin: 0 0 0 -1.325rem;
         background:url('../assets/images/img/btn.png') no-repeat center;
@@ -131,16 +169,18 @@ export default {
 	
 	.des-wrap{
 	    position: relative;
-		max-width: 3.4rem;
+		max-width: 4.4rem;
+		padding: 0 0.4rem;
 		margin: 0 auto;
 	}
-	.des-wrap p{
+	.des-wrap .bless{
 	    font-size: 0.22rem;
-	    line-height: 0.5rem;       
+		line-height: 0.5rem;  
+		color: #690004;     
 	}
 	.des-wrap .icon1{
 	    position: absolute;
-	    left: 0;
+	    left: -0.1rem;
 	    top: 0;
 	    width: 0.25rem;
 	    height: 0.3rem;
@@ -149,7 +189,7 @@ export default {
 	}
 	.des-wrap .icon2{
 	    position: absolute;
-	    right: -0.1rem;
+	    right: 0rem;
 	    bottom: 0;
 	    width: 0.25rem;
 	    height: 0.3rem;
@@ -181,10 +221,24 @@ export default {
 		top: 0.9rem;
 		right: -0.3rem;
 		width: 3.2rem;
-	    height: 8.12rem;
-		background:url('../assets/images/img/step5-women.png') no-repeat center top;
-		background-size: contain; 
+		height: 8.12rem;
+		background-repeat: no-repeat; 
+		background-position: left top; 
+        background-size: contain;
 	}
+	.man_xifu{
+		top: 0.9rem;
+	}
+	.man_hanfu{
+		//top: 0.9rem;
+	}
+    .women_hanfu{
+		top: 1.3rem;
+	}
+	.women_qipao{
+		//top: 0.9rem;
+	}
+
 	.gold{
 		position: absolute;
 		top: 4.4rem;

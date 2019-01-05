@@ -69,6 +69,8 @@
         },
         methods: {
             goGreeting() {
+                localStorage.setItem('date', document.getElementById('select-date').innerHTML)
+                localStorage.setItem('sex', document.getElementById('select-sex').innerHTML)
                 this.$router.push('/greetings');
             }
         },

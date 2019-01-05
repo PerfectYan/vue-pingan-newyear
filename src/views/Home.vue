@@ -98,7 +98,7 @@
     .caishen{
         position: absolute;
         left: -0.5rem;
-        top: 6rem;
+        bottom: 0.3rem;
         z-index: 1;
         width: 5.85rem;
         height: 7.09rem;
@@ -108,7 +108,7 @@
     .man{
         position: absolute;
         left: 38%;
-        top: 4.2rem;
+        bottom: 0rem;
         width: 3.52rem;
         height: 8.97rem;
         background:url('../assets/images/img/man.png') no-repeat center;
@@ -117,7 +117,7 @@
     .woman{
         position: absolute;
         right: -0.2rem;
-        top: 4.85rem;
+        bottom: -2rem;
         z-index: 2;
         width: 3.16rem;
         height: 10.18rem;
@@ -145,7 +145,7 @@
         line-height: 0.9rem;
         position: absolute;
         left: 50%;
-        top: 11rem;
+        bottom: 1.4rem;
         z-index: 4;
         margin: 0 0 0 -1.325rem;
         background:url('../assets/images/img/btn.png') no-repeat center;
