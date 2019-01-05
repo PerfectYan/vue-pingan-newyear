@@ -1,7 +1,7 @@
 <template>
-    <div>      
+    <div>
         <div class="mask">
-            <div class="logo"></div> 
+            <div class="logo"></div>
             <div class="top-cont">
                 <div class="des-wrap">
                     <p>新的一年 </p>
@@ -20,7 +20,7 @@
                 </div>
                 <div id="select-date">正月.初一</div>
                 <div id="select-sex">男</div>
-                <!-- <input id="select-date" type="text" value=""  placeholder="日期" /> 
+                <!-- <input id="select-date" type="text" value=""  placeholder="日期" />
                 <input id="select-sex" type="text"  placeholder="性别" />  -->
 
             </div>
@@ -42,20 +42,20 @@
         {"name": "正月.初五"},
         {"name": "正月.初六"},
         {"name": "正月.初七"},
-        {"name": "正月.初八"},   
+        {"name": "正月.初八"},
         {"name": "正月.初九"},
         {"name": "正月.初十"},
         {"name": "正月.初十一"},
         {"name": "正月.初十二"},
         {"name": "正月.初十三"},
         {"name": "正月.初十四"},
-        {"name": "正月.初十五"},  
+        {"name": "正月.初十五"},
         ];
 
     const data2 = [
-        {"sex": "男"},
-        {"sex": "女"},     
-        ];    
+        {"gender": "男"},
+        {"gender": "女"},
+        ];
 
     export default {
         name: 'Loading',
@@ -69,8 +69,8 @@
         },
         methods: {
             goGreeting() {
-                localStorage.setItem('date', document.getElementById('select-date').innerHTML)
-                localStorage.setItem('sex', document.getElementById('select-sex').innerHTML)
+                localStorage.setItem('date', document.getElementById('select-date').innerHTML);
+                localStorage.setItem('gender', document.getElementById('select-sex').innerHTML);
                 this.$router.push('/greetings');
             }
         },
@@ -94,7 +94,7 @@
                     'trigger': '#select-sex', //触发选择控件的文本框，同时选择完毕后name属性输出到该位置
                     //'valueTo': '#value3', //选择完毕后id属性输出到该位置
                     'keys': {
-                        name: 'sex'
+                        name: 'gender'
                     }, //绑定数据源相关字段 id对应valueTo的value属性输出 name对应trigger的value属性输出
                     'type': 1, //数据源类型
                     'data': data2 //数据源
@@ -102,7 +102,7 @@
                // modal2.value=["男",'', ''];//控制初始位置，注意：该方法并不会影响到input的value
 
             })
-           
+
         }
 
     }

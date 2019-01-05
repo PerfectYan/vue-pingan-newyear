@@ -8,12 +8,12 @@
             <strong>输入您的祝福语吧</strong>
             <div class="input-wrap">
                 <input v-model="bless" maxlength="20" placeholder="如: 祝您新的一年" type="text">
-                <div class="input-icon"></div>
+                <div class="input-icon" @click="getBless"></div>
             </div>
         </div>
 
         <div class="botao"></div>
-        <div class="btn" @click="goResult">生成祝福</div>
+        <div class="btn" @click="getPosters">生成祝福</div>
 
         <Toast v-if="isShowToast" :content="content"></Toast>
 
@@ -24,7 +24,7 @@
     // @ is an alias to /src
     import Header from '@/components/Header.vue'
     import Toast from '@/components/toast.vue'
-    import { upload } from '@/api/'
+    import { upload, getBless, getPosters } from '@/api/'
 
     export default {
         name: 'Loading',
@@ -36,37 +36,46 @@
                 hasLatch: true,
                 isShowToast: false,
                 content: '',
-                bless: ''
+                bless: '',
+                imgfile: ''
             }
         },
         mounted(){
-
+            this.getBless();
         },
         methods: {
             showToast(content){
-              this.isShowToast =  true;  
-              this.content = content;           
+              this.isShowToast =  true;
+              this.content = content;
             },
             hideToast(){
                  setTimeout(() => {
                   this.isShowToast =  false;
-              }, 1500);
+              }, 2000);
             },
-            goResult() {
+            getBless() {
+                getBless().then(res=> {
+                    console.log(res);
+                    if(res.data && res.data.code == 200){
+                        this.bless = res.data.content.bless;
+                    }
+                });
+            },
+            uploadImg() {
                 var file = this.$refs.uploadFile.files;
                 if (file.length == 0) {
-                    this.showToast('请上传图片')
+                    this.showToast('请上传图片');
                     this.hideToast();
                     return
                  }
                 if (file[0].type.match(/png|jpg|jpeg/) == null) {
-                    this.showToast('不支持改格式的文件')
+                    this.showToast('不支持改格式的文件');
                     this.hideToast();
                     return
                 }
                 if (file[0].size / (1024 * 1024) > 3) {
                   // 大于3M
-                  this.showToast('您上传的图片超过3M，请重新选择图片')
+                  this.showToast('您上传的图片超过3M，请重新选择图片');
                   this.hideToast();
                   return
                 }
@@ -74,28 +83,28 @@
                 this.showToast('上传中...');
 
                 const formData = new FormData();
+                let gender = localStorage.getItem('gender')=='男'? 1: 2;
                 formData.append('imgfile', this.$refs.uploadFile.files[0]);
-                formData.append('gender', localStorage.getItem('sex'));
+                formData.append('gender', gender);
                 formData.append('year_date', localStorage.getItem('date'));
                 upload(formData).then(res=>{
-                   if(typeof res.data === 'string'){ // 
+                   if(typeof res.data === 'string'){ //
                      this.showToast('您上传的照片没有扫描到人脸，请重新选择包含人脸的照片');
                      this.hideToast();
                    }else if(res.data.code === 200){
                      this.showToast('上传成功');
                      this.hideToast();
                      this.bless && localStorage.setItem('bless', this.bless);
-                     localStorage.setItem('uploadData', JSON.stringify(res.data.content)); // 1汉服男 2中山装男 3汉服女 4旗袍女 
-                     setTimeout(()=>{                        
-                         this.$router.push('/result');
-                     }, 2000)
+                     this.imgfile = res.data.content.img_path;
+                     localStorage.setItem('uploadData', JSON.stringify(res.data.content)); // 1汉服男 2中山装男 3汉服女 4旗袍女
                    }
-                }).catch(error=>{     
-                    this.showToast(error.message);
-                    this.hideToast();  
-                })                         
+                }).catch(error=>{
+                    let message = error && error.data && error.data.message ? error.data.message : '系统繁忙，请稍后重试'
+                    this.showToast(message);
+                    this.hideToast();
+                })
             },
-            change(e){               
+            change(e){
                 // var file = e.target.files[0];
                 // console.log(file)
                 // var reader = new FileReader();
@@ -104,6 +113,32 @@
                 // reader.onload = function(e) {
                 //     that.avatar = this.result
                 // }
+                this.uploadImg();
+            },
+            getPosters() {
+                if(this.imgfile == ''){
+                    this.showToast('请先上传您的照片');
+                    this.hideToast();
+                    return;
+                }
+                if(this.bless == ''){
+                    this.showToast('请输入您的祝福语');
+                    this.hideToast();
+                    return;
+                }
+
+                let params = {
+                    bless: this.bless,
+                    imgfile: this.imgfile
+                };
+
+                getPosters(params).then(res=>{
+                    console.log(res);
+                }).catch(error => {
+                    let message = error && error.data && error.data.message ? error.data.message : '系统繁忙，请稍后重试'
+                    this.showToast(message);
+                    this.hideToast();
+                })
             }
         }
     }
@@ -225,6 +260,7 @@
     }
 
     .input-wrap input {
+        width: 3.8rem;
         height: 0.35rem;
         background: none;
         border: none;

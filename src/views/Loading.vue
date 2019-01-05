@@ -38,7 +38,7 @@
         mounted() {
             setTimeout(()=>{
                 this.$router.push('/home');
-            },3000)
+            },5000)
         }
     }
 </script>
@@ -86,7 +86,7 @@
             width: 100%;
             position: absolute;
             left: 0;
-            top: 11rem;
+            bottom: 1.6rem;
             text-align: center;
             font-size: 0.3rem;
         }
