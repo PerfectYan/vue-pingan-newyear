@@ -71,7 +71,7 @@ export default {
     input() {
       //输入的时候，如果软键盘处于弹起状态
       if (this.isShowModal == false) {
-         if(this.resizeH < 0){  // 
+         if(this.resizeH < 0){  //
          // alert(100)
             document.getElementById("app").style.paddingTop =  "100px";
          }
@@ -111,7 +111,7 @@ export default {
         console.log(res);
         if (res.data && res.data.code == 200) {
           this.bless = res.data.content.bless;
-          localStorage.setItem("bless", this.bless);
+          sessionStorage.setItem("bless", this.bless);
         }
       });
     },
@@ -137,10 +137,10 @@ export default {
       this.showToast("上传中...");
 
       const formData = new FormData();
-      let gender = localStorage.getItem("gender") == "男" ? 1 : 2;
+      let gender = sessionStorage.getItem("gender") == "男" ? 1 : 2;
       formData.append("gender", gender);
       formData.append("imgfile", base64);
-      formData.append("year_date", localStorage.getItem("date"));
+      formData.append("year_date", sessionStorage.getItem("date"));
       upload(formData)
         .then(res => {
           if (typeof res.data === "string") {
@@ -152,12 +152,12 @@ export default {
           } else if (res.data.code === 200) {
             this.showToast("上传成功");
             this.hideToast();
-            this.bless && localStorage.setItem("bless", this.bless);
+            this.bless && sessionStorage.setItem("bless", this.bless);
             this.pic_type = res.data.content.pic_type;
             this.convertImgToBase64(res.data.content.img_path, res => {
-              localStorage.setItem("img_file", res);
+              sessionStorage.setItem("img_file", res);
             });
-            localStorage.setItem(
+            sessionStorage.setItem(
               "uploadData",
               JSON.stringify(res.data.content)
             ); // 1汉服男 2中山装男 3汉服女 4旗袍女

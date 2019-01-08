@@ -52,8 +52,8 @@
         },
         methods: {
             goGreeting() {
-                localStorage.setItem('date', document.getElementById('select-date').innerHTML);
-                localStorage.setItem('gender', document.getElementById('select-sex').innerHTML);
+                sessionStorage.setItem('date', document.getElementById('select-date').innerHTML);
+                sessionStorage.setItem('gender', document.getElementById('select-sex').innerHTML);
                 this.$router.push('/greetings');
             },
             initPage(data){

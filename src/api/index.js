@@ -36,7 +36,7 @@ export function getBless(data) {
 }
 
 
-// 合成海报  参数 bless 从本地获取 => localStorage.getItem('bless');
+// 合成海报  参数 bless 从本地获取 => sessionStorage.getItem('bless');
 export function getPosters(data) {
     return request({
         headers: {

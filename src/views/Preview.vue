@@ -35,7 +35,7 @@
         },
         computed: {
             cls() {
-                let uploadData = localStorage.getItem('uploadData');
+                let uploadData = sessionStorage.getItem('uploadData');
                 if (uploadData) {
                     uploadData = JSON.parse(uploadData);
                     let {pic_type, img_path, nickname } = uploadData;
@@ -103,12 +103,12 @@
                 const formData = new FormData();
                 formData.append('bless', this.bless);
                 formData.append('year_date', this.date);
-                formData.append('imgfile', localStorage.getItem('img_file')||'');
+                formData.append('imgfile', sessionStorage.getItem('img_file')||'');
                 formData.append('pic_type', this.pic_type);
 
 
                 getPosters(formData).then(res => {
-                    localStorage.setItem('img_path', res.data.content.img_path);
+                    sessionStorage.setItem('img_path', res.data.content.img_path);
                     this.$router.push('/result');
                 }).catch(error => {
                     let message = error && error.data && error.data.message ? error.data.message : '系统繁忙，请稍后重试'
@@ -118,8 +118,8 @@
             }
         },
         mounted() {
-            this.bless = localStorage.getItem('bless') || '';
-            this.date = localStorage.getItem('date') || '';
+            this.bless = sessionStorage.getItem('bless') || '';
+            this.date = sessionStorage.getItem('date') || '';
             var rate = window.innerWidth / 7.5;
             this.$nextTick(() => {
                 if (window.innerHeight < 12 * rate) {
