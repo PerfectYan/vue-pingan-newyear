@@ -33,24 +33,7 @@
    import Vue from 'vue'
     // @ is an alias to /src
     import Header from '@/components/Header.vue';
-
-    const data1 = [
-        {"name": "正月.初一"},
-        {"name": "正月.初二"},
-        {"name": "正月.初三"},
-        {"name": "正月.初四"},
-        {"name": "正月.初五"},
-        {"name": "正月.初六"},
-        {"name": "正月.初七"},
-        {"name": "正月.初八"},
-        {"name": "正月.初九"},
-        {"name": "正月.初十"},
-        {"name": "正月.初十一"},
-        {"name": "正月.初十二"},
-        {"name": "正月.初十三"},
-        {"name": "正月.初十四"},
-        {"name": "正月.初十五"},
-        ];
+    import { getDate } from '@/api/'
 
     const data2 = [
         {"gender": "男"},
@@ -72,11 +55,8 @@
                 localStorage.setItem('date', document.getElementById('select-date').innerHTML);
                 localStorage.setItem('gender', document.getElementById('select-sex').innerHTML);
                 this.$router.push('/greetings');
-            }
-        },
-        mounted(){
-            //这样可以，nextTick里面的代码会在DOM更新后执行
-            Vue.nextTick(function(){
+            },
+            initPage(data){
                 var modal = new LArea();
                 modal.init({
                     'trigger': '#select-date', //触发选择控件的文本框，同时选择完毕后name属性输出到该位置
@@ -85,7 +65,7 @@
                         name: 'name'
                     }, //绑定数据源相关字段 id对应valueTo的value属性输出 name对应trigger的value属性输出
                     'type': 1, //数据源类型
-                    'data': data1 //数据源
+                    'data': data //数据源
                 });
                 // modal.value=["正月.初一",'', ''];//控制初始位置，注意：该方法并不会影响到input的value
 
@@ -100,7 +80,21 @@
                     'data': data2 //数据源
                 });
                // modal2.value=["男",'', ''];//控制初始位置，注意：该方法并不会影响到input的value
-
+            }
+        },
+        mounted(){
+            //这样可以，nextTick里面的代码会在DOM更新后执行
+            Vue.nextTick(() => {
+                getDate().then(res=>{
+                    if(res.data.code == 200){
+                       var data =  res.data.content.map((item,index)=>{
+                            return {
+                               name: item
+                            }
+                        })
+                        this.initPage(data);
+                    }
+                })
             })
 
         }
@@ -245,7 +239,7 @@
         line-height: 0.9rem;
         position: absolute;
         left: 50%;
-        top: 10.4rem;
+        top: 10.5rem;
         z-index: 4;
         margin: 0 0 0 -1.325rem;
         background: url('../assets/images/img/btn.png') no-repeat center;

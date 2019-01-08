@@ -41,7 +41,7 @@
         },
         methods: {
             download() {
-                console.log('download');
+                window.location.href = 'https://ulink.lifeapp.pingan.com.cn/index.html?url=pars%3A%2F%2Fpars.pingan.com%2Fact_detail%3Faid%3D%E6%B4%BB%E5%8A%A8id'
             }
         }
     }

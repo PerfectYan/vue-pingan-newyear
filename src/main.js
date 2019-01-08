@@ -8,6 +8,10 @@ import store from './store'
 import './assets//js/LArea'
 import './assets/style/LArea.css'
 
+import '../src/utils/exif';
+import '../src/utils/processImg'
+
+
 Vue.config.productionTip = false;
 Vue.prototype.Axios = Axios;
 

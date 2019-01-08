@@ -19,7 +19,7 @@
         <div class="gold-l"></div>
         <div class="gold-m"></div>
         <div class="gold-r"></div>
-        <div class="btn" @click="showModal">开始拜年</div>
+        <div class="btn" @click="showModal" v-show="!isShowModal">开始拜年</div>
 
        <!-- 选日期弹窗 -->
         <SelectTime v-show="isShowModal"></SelectTime>
@@ -45,8 +45,9 @@
         },
         methods: {
              showModal(){
+
                 this.isShowModal = true;
-            },         
+            }
         }
     }
 </script>

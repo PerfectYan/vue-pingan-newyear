@@ -5,14 +5,6 @@ module.exports = {
     baseUrl: './',
     // 输出文件目录
     outputDir: 'dist',
-    devServer:{//代理
-        proxy: {
-            '/uploadImg': {
-                target: 'http://pingan.suoteng.net/api/pingan/uploadImg',  // target host
-                changeOrigin: true  // needed for virtual hosted sites
-            }
-        }
-    },
     css: {
         loaderOptions: {
             // pass options to sass-loader

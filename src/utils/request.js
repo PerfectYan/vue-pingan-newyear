@@ -1,7 +1,6 @@
 import axios from 'axios'
 import Env from './env'
 
-
 // create an axios instance
 const service = axios.create({
     headers: {
@@ -23,10 +22,13 @@ service.interceptors.request.use(config => {
 // response interceptor
 service.interceptors.response.use(
   response => {
-      if(response.data.code != 200){
-          return Promise.reject(response);
-      }else{
+      if(response.data.code == 200){
           return Promise.resolve(response);
+      }else{
+          if(response.data.code == 302){
+              // location.href=response.data.url;
+          }
+          return Promise.reject(response);
       }
   },
   error => {

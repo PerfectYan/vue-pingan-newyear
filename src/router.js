@@ -6,6 +6,7 @@ import Home from '@/views/Home.vue'
 import About from '@/views/About.vue'
 import Select from '@/views/Select.vue'
 import Greetings from '@/views/Greetings.vue'
+import Preview from '@/views/Preview.vue'
 import Result from '@/views/Result.vue'
 
 Vue.use(Router);
@@ -39,6 +40,11 @@ export default new Router({
             path: '/greetings',
             name: 'greetings',
             component: Greetings
+        },
+        {
+            path: '/preview',
+            name: 'preview',
+            component: Preview
         },
         {
             path: '/result',
