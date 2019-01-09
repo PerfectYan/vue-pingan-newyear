@@ -20,18 +20,20 @@
         <div class="botao"></div>
         <div class="btn btn-left" @click="goGreetings">重新上传</div>
         <div class="btn btn-right" @click="getPosters">生成海报</div>
+        <Toast v-if="isShowToast" :content="content"></Toast>
     </div>
 </template>
 
 <script>
     // @ is an alias to /src
-    import Header from '@/components/Header.vue'
+    import Header from '@/components/Header.vue';
+    import Toast from "@/components/toast.vue";
     import {getPosters} from '@/api/'
 
     export default {
         name: 'Loading',
         components: {
-            Header
+            Header, Toast
         },
         computed: {
             cls() {
@@ -105,10 +107,10 @@
                 formData.append('year_date', this.date);
                 formData.append('imgfile', sessionStorage.getItem('img_file')||'');
                 formData.append('pic_type', this.pic_type);
-
-
+                this.showToast('海报生成中···');
                 getPosters(formData).then(res => {
                     sessionStorage.setItem('img_path', res.data.content.img_path);
+                    this.hideToast();
                     this.$router.push('/result');
                 }).catch(error => {
                     let message = error && error.data && error.data.message ? error.data.message : '系统繁忙，请稍后重试'

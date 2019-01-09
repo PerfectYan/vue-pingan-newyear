@@ -2,7 +2,8 @@
     <div class="content">
         <div class="logo"></div>
         <div class="top-cont">
-            <div class="camara">
+            <div  class="preImg" :style="{backgroundImage: `url(${preImg})`}"></div>
+            <div :class="[!showCamara? 'hideCamara' : '']" class="camara">
                 <input multiple ref="uploadFile" @change="change($event)" class="file" type="file" name="file"
                        accept="image/*">
             </div>
@@ -35,12 +36,14 @@ export default {
   },
   data() {
     return {
+      showCamara: true,
       isShowModal: true,
       hasLatch: true,
       isShowToast: false,
       content: "",
       bless: "",
-      pic_type: ""
+      pic_type: "",
+      preImg: ''
     };
   },
   mounted() {
@@ -123,7 +126,7 @@ export default {
         return;
       }
       if (file[0].type.match(/png|jpg|jpeg/) == null) {
-        this.showToast("不支持改格式的文件");
+        this.showToast("不支持该格式的文件");
         this.hideToast();
         return;
       }
@@ -152,6 +155,8 @@ export default {
           } else if (res.data.code === 200) {
             this.showToast("上传成功");
             this.hideToast();
+            this.showCamara = false;
+            this.preImg = base64;
             this.bless && sessionStorage.setItem("bless", this.bless);
             this.pic_type = res.data.content.pic_type;
             this.convertImgToBase64(res.data.content.img_path, res => {
@@ -246,6 +251,23 @@ export default {
     bottom: 1rem;
   }
 }
+.hideCamara{
+   opacity: 0;
+}
+
+.preImg{
+   position: absolute;
+   top: 0.5rem;
+   left: 50%;
+   height: 5.24rem;
+   width: 5.2rem;
+   margin-left: -2.6rem;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: contain;
+
+}
+
 
 /* 使用webkit内核的浏览器 */
 html,

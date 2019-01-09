@@ -24,10 +24,10 @@
     },
     methods: {
       control() {
-        if (this.playing) {
-          this.$refs.audio.pause();
-        } else {
+        if (this.$refs.audio.paused) {
           this.$refs.audio.play();
+        } else {
+          this.$refs.audio.pause();
         }
       },
       initWXConfig(callback) {
@@ -99,14 +99,14 @@
           audioAutoPlay();
         });
         //--创建触摸监听，当浏览器打开页面时，触摸屏幕触发事件，进行音频播放
-        document.addEventListener('touchstart', function() {
-          function audioAutoPlay() {
-            var audio = document.getElementById('bgmusic');
-            audio.play();
-          }
+        // document.addEventListener('touchstart', function() {
+        //   function audioAutoPlay() {
+        //     var audio = document.getElementById('bgmusic');
+        //     audio.play();
+        //   }
 
-          audioAutoPlay();
-        });
+        //   audioAutoPlay();
+        // });
 
         var audioEl = document.getElementById('bgmusic');
         forceSafariPlayAudio();
@@ -169,7 +169,7 @@
             log('正在播放');
             that.playing = true;
             // 当 audio 能够播放后, 移除这个事件
-            window.removeEventListener('touchstart', forceSafariPlayAudio, false);
+            //window.removeEventListener('touchstart', forceSafariPlayAudio, false);
           },
           false
         );
@@ -184,7 +184,7 @@
 
         // 由于 iOS Safari 限制不允许 audio autoplay, 必须用户主动交互(例如 click)后才能播放 audio,
         // 因此我们通过一个用户交互事件来主动 play 一下 audio.
-        window.addEventListener('touchstart', forceSafariPlayAudio, false);
+       // window.addEventListener('touchstart', forceSafariPlayAudio, false);
         //  audioEl.src =  "https://img-cdn-qiniu.dcloud.net.cn/uniapp/audio/music.mp3";
 
       });
@@ -201,7 +201,7 @@
         position: fixed;
         top: 0.6rem;
         right: 0.1rem;
-        z-index: 100;
+        z-index: 200;
         width: 0.7rem;
         height: 0.7rem;
         border-radius: 0.4rem;

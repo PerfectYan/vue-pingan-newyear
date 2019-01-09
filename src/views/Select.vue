@@ -18,7 +18,7 @@
                     <div class="year">2019</div>
                     <div>己亥猪年</div>
                 </div>
-                <div id="select-date">正月.初一</div>
+                <div id="select-date"></div>
                 <div id="select-sex">男</div>
                 <!-- <input id="select-date" type="text" value=""  placeholder="日期" />
                 <input id="select-sex" type="text"  placeholder="性别" />  -->
@@ -57,6 +57,7 @@
                 this.$router.push('/greetings');
             },
             initPage(data){
+                document.getElementById('select-date').innerHTML = data[0].name ;
                 var modal = new LArea();
                 modal.init({
                     'trigger': '#select-date', //触发选择控件的文本框，同时选择完毕后name属性输出到该位置
