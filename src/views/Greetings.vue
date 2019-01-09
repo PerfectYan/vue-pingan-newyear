@@ -257,7 +257,7 @@ export default {
 
 .preImg{
    position: absolute;
-   top: 0.5rem;
+   top: 0.506rem;
    left: 50%;
    height: 5.24rem;
    width: 5.2rem;

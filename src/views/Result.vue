@@ -21,7 +21,7 @@
         <div class="btn btn-left" @click="goGreetings">重新上传</div>
         <div class="btn btn-right" @click="getPosters">生成海报</div>
         <div class="btn-wrap">
-             <div class="btn go-home" @click="goHome">返回首页</div>
+             <!--<div class="btn go-home" @click="goHome">返回首页</div>-->
              <div class="btn btn-about" @click="goAbout">即刻生财</div>
         </div>
         <img :src="img_path" class="post-img">
@@ -218,10 +218,12 @@
     }
     .btn-wrap{
         position: absolute;
-        bottom: 0rem;
+        left: 50%;
+        bottom: 0;
         z-index: 201;
-        width: 100%;
-        height: 2.6rem;
+        width: 2.65rem;
+        height: 2.65rem;
+        margin-left: -1.43rem;
         padding-top: 0.6rem;
         box-sizing: border-box;
         display: flex;
