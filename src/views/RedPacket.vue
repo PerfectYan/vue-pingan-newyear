@@ -39,10 +39,21 @@
                 hasLatch: true,
                 bgGold: true,
                 iconGold: true,
-                hasCoins: true
+                hasCoins: true,
+                isShowToast: '',
+                content: ''
             }
         },
         methods: {
+            showToast(content){
+                this.isShowToast =  true;
+                this.content = content;
+            },
+            hideToast(){
+                setTimeout(() => {
+                    this.isShowToast =  false;
+                }, 2000);
+            },
             goHome() {
                 this.$router.push('/home');
             },
@@ -77,6 +88,10 @@
                                         this.querySelector('.setframes').style.animationPlayState = 'paused';
                                         getRedPacket().then((res)=>{
                                             console.log(res);
+                                            this.setResult();
+                                        }).catch(error=>{
+                                            this.showToast(error.message);
+                                            this.hideToast();
                                         });
                                     }
                                 }, 3000);

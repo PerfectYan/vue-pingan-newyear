@@ -26,7 +26,7 @@ service.interceptors.response.use(
           return Promise.resolve(response);
       }else{
           if(response.data.code == 302){
-              // location.href=response.data.url;
+
           }
           return Promise.reject(response);
       }
