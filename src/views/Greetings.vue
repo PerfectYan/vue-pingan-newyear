@@ -162,7 +162,6 @@
                             this.bless && sessionStorage.setItem("bless", this.bless);
                             this.pic_type = res.data.content.pic_type;
                             this.convertImgToBase64(res.data.content.img_path, res => {
-                                alert(res);
                                 sessionStorage.setItem("img_file", res);
                             });
                             sessionStorage.setItem(
@@ -201,7 +200,6 @@
                     canvas.width = 250;
                     ctx.drawImage(img, 0, 0);
                     let dataURL = canvas.toDataURL("image/png");
-                    alert(dataURL);
                     callback(dataURL);
                     canvas = null;
                 };

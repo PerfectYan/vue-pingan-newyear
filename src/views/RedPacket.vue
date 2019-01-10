@@ -353,13 +353,13 @@
     }
 
     .finish span {
-        width: 100px;
-        height: 100px;
+        width: 50px;
+        height: 50px;
         display: block;
         position: absolute;
         top: 50%;
         left: 50%;
-        margin: 0.46rem 0 0 -50px;
+        margin: 0.7rem 0 0 -25px;
         border-radius: 0;
         background: url('~@/assets/images/redpacket/img-37.png') no-repeat center;
         background-size: cover;
@@ -418,7 +418,6 @@
 
     .money-info {
         width: 100%;
-        height: 1.5rem;
         position: absolute;
         top: 5rem;
     }
@@ -447,7 +446,7 @@
     .money-btn {
         position: absolute;
         left: 50%;
-        bottom: 150px;
+        bottom: 1.5rem;
         z-index: 4;
         width: 180px;
         height: 40px;

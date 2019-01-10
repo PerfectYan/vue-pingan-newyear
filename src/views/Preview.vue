@@ -106,7 +106,6 @@
                 const formData = new FormData();
                 formData.append('bless', this.bless);
                 formData.append('year_date', this.date);
-                alert(sessionStorage.getItem('img_file'));
                 formData.append('imgfile', sessionStorage.getItem('img_file'));
                 formData.append('pic_type', this.pic_type);
                 this.showToast('海报生成中···');
