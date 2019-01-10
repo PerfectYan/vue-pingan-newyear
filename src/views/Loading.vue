@@ -1,5 +1,6 @@
 <template>
     <div class="loading">
+         <div class="logo-r"></div> 
         <Header :hasLatch="hasLatch"/>
         <div class="botao-daoying"></div>
         <div class="person-daoying"></div>

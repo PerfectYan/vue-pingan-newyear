@@ -1,5 +1,6 @@
 <template>
     <div class="content">
+        <div class="logo-r"></div> 
         <div class="logo"></div>
         <div class="top-cont">
             <div class="des-wrap">
@@ -64,11 +65,23 @@
         .des-wrap{
            position: relative;
            top: -0.6rem;
-           margin-bottom: 0;
+           margin-bottom: -0.2rem;
+           .icon2{
+               bottom: -0.1rem;
+           }
         }
         // .gold-l ,.gold-m , .gold-r
         .caishen, .man , .woman {
-            transform: scale(0.8);
+            transform: scale(0.8);           
+        }
+        .caishen{
+            bottom: 0.2rem;
+        }
+        .man{
+            bottom: -0.2rem;
+        }
+         .woman{
+            bottom: -2.1rem;
         }
     }
     .top-cont{

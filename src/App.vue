@@ -9,6 +9,7 @@
             <source src="./assets/font/cheerful.mp3" type="audio/mpeg"/>
         </audio>
         <div :class="[playing? 'playing' : 'paused']" @click="control" id="audio-bg" class="audio-bg"></div>
+
     </div>
 </template>
 <script>
@@ -196,6 +197,17 @@
 <style lang="scss">
     audio {
         display: none;
+    }
+
+     .logo-r{
+       position: fixed;
+        top: 0rem;
+        left: 0rem;
+        z-index: 200;
+        width: 2rem;
+        height: 0.96rem;
+         background: url('./assets//images/common/logoo.png') no-repeat center;
+        background-size: 55%;
     }
 
     .audio-bg {

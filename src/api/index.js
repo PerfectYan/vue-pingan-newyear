@@ -56,3 +56,12 @@ export function getPosters(data) {
     })
 }
 
+export function getRedPacket(data) {
+    return request({
+        url: 'api/pingan/get_red_packet',
+        method: 'post',
+        data
+    })
+}
+
+

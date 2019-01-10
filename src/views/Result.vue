@@ -1,5 +1,6 @@
 <template>
     <div class="content">
+         <div class="logo-r"></div> 
         <div class="logo"></div>
         <div class="top-cont">
             <div class="top-bg"></div>
@@ -235,7 +236,7 @@
         }
         &.btn-right{
             left: 50%;
-            bottom: 0.5rem;
+            bottom: 0.3rem;
             z-index: 200;
             margin-left: -1.325rem;
         }
@@ -245,7 +246,7 @@
         width: 100%;
         color: #E6C18A;
         font-size: 0.3rem;
-        bottom: 2rem;
+        bottom: 1.5rem;
         z-index: 200;
         pointer-events: none; // 可以穿透到下一层， 比如复制遮罩层下的问题
     }

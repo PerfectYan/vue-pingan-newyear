@@ -150,7 +150,7 @@
         width: 4.5rem;
         margin: 0 auto 0.6rem;
         position: relative;
-        padding-top: 0.9rem;
+        padding-top: 0.4rem;
 
     }
 
@@ -240,7 +240,7 @@
         line-height: 0.9rem;
         position: absolute;
         left: 50%;
-        top: 10.5rem;
+        top: 9.8rem;
         z-index: 4;
         margin: 0 0 0 -1.325rem;
         background: url('../assets/images/img/btn.png') no-repeat center;
@@ -269,7 +269,7 @@
         height: 5.57rem;
         position: absolute;
         left: 50%;
-        top: 4.5rem;
+        top: 4rem;
         z-index: 12;
         color: #D89773;
         margin: 0 0 0 -2.59rem;

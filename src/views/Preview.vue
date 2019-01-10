@@ -1,5 +1,6 @@
 <template>
     <div class="content">
+        <div class="logo-r"></div>
         <div class="logo"></div>
         <div class="top-cont">
             <div class="top-bg"></div>
@@ -105,7 +106,7 @@
                 const formData = new FormData();
                 formData.append('bless', this.bless);
                 formData.append('year_date', this.date);
-                formData.append('imgfile', sessionStorage.getItem('img_file')||'');
+                formData.append('imgfile', sessionStorage.getItem('img_file'));
                 formData.append('pic_type', this.pic_type);
                 this.showToast('海报生成中···');
                 getPosters(formData).then(res => {

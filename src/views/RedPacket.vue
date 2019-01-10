@@ -5,7 +5,7 @@
             <!--完成-->
             <div class="finish">
                 <p class="redpack-txt"></p>
-                <span class="" id="choujiang"></span>
+                <span class="" id="choujiang" @click="getRedPacket"></span>
                 <span class="setframes"></span>
             </div>
         </div>
@@ -30,6 +30,8 @@
 
 <script>
 
+    import { getRedPacket } from '@/api/';
+
     export default {
         name: 'RedPacket',
         data() {
@@ -50,6 +52,9 @@
             querySelector(obj) {
                 return document.querySelector(obj);
             },
+            getRedPacket() {
+
+            },
             showResultFinish() {
                 var k = 0;
                 var redPacketTxt = ["红包在手，运气我有！", "X9在向你招手！", "考验运气的时候到了！", "注入念力！呼唤X9！", "见证奇迹的时刻到了！"];
@@ -66,12 +71,13 @@
                                 this.querySelector('.finish span:nth-of-type(1)').style.display = 'none';
                                 //playSound(2);
                                 this.querySelector('.setframes').style.animationPlayState = 'running';
-
                                 setTimeout(()=> { //等待服务器响应,返回结果
                                     var isOpen = true;
                                     if (isOpen) {
                                         this.querySelector('.setframes').style.animationPlayState = 'paused';
-                                        this.setResult();
+                                        getRedPacket().then((res)=>{
+                                            console.log(res);
+                                        });
                                     }
                                 }, 3000);
                                 k = 1;
@@ -320,9 +326,9 @@
         width: 100%;
         height: auto;
         position: absolute;
-        top: 310px;
+        top: 2rem;
         left: 0;
-        font-size: 38px;
+        font-size: 20px;
         color: #fde0b2;
         text-align: center;
     }
@@ -371,6 +377,7 @@
     }
 
     .money-box span:nth-of-type(1) {
+        width: 100%;
         height: 4.74rem;
         top: -2.3rem;
         background: linear-gradient(-159deg, #ff8c69, #ff4747);
@@ -441,8 +448,8 @@
 
     .money-btn img {
         display: block;
-        width: 268px;
-        height: 60px;
+        width: 180px;
+        height: 40px;
         margin: auto;
     }
 
