@@ -41,6 +41,15 @@
         },
         methods: {
             download() {
+                let param = {
+                    event: '点击',
+                    label: '即刻生财'
+                };
+                window.PALifeOpen.trackEvent(param, function (data) {
+                    console.debug('success', data);
+                }, function (data) {
+                    console.debug('failed ', data)
+                });
                 window.location.href = 'https://ulink.lifeapp.pingan.com.cn/index.html?url=pars%3A%2F%2Fpars.pingan.com%2Fact_detail%3Faid%3D%E6%B4%BB%E5%8A%A8id'
             }
         }
@@ -75,7 +84,8 @@
         background-color: rgba(230, 193, 139, 1);
         border-radius: 0.08rem;
     }
-    .about-caishen{
+
+    .about-caishen {
         width: 3.4rem;
         height: 6.2rem;
         position: absolute;

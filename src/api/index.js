@@ -8,6 +8,14 @@ export function getWXConfig(data) {
     })
 }
 
+export function shareRecord(data) {
+    return request({
+        url: 'api/pingan/share_record',
+        method: 'post',
+        data
+    })
+}
+
 export function getDate(data) {
     return request({
         url: 'api/pingan/getdate',
@@ -47,3 +55,4 @@ export function getPosters(data) {
         data
     })
 }
+

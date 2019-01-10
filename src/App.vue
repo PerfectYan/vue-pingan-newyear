@@ -13,7 +13,7 @@
 </template>
 <script>
   import Env from './utils/env';
-  import { getWXConfig } from './api/';
+  import { getWXConfig, shareRecord } from './api/';
 
   export default {
     name: 'app',
@@ -53,12 +53,13 @@
             ]
           });
           var shareConfig = {
-            title: '平安健康行',
-            desc: '平安健康行',
-            imgUrl: `${Env.baseUrl}static/images/1.png`,
+            title: '19年，一起来步步生财',
+            desc: '跟财神爷合影拜大年，PICK新年赚钱新姿势，走路也能赚大钱',
+            imgUrl: `${Env.baseUrl}static/images/share.jpg`,
             link: Env.baseUrl,
             success: function() {
               // 用户确认分享后执行的回调函数
+                shareRecord();
             },
             cancel: function() {
               // 用户取消分享后执行的回调函数

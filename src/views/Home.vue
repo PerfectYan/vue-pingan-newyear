@@ -49,7 +49,7 @@
             }
         },
         mounted(){
-            var rate = window.innerWidth / 7.5;
+            let rate = window.innerWidth / 7.5;
             this.$nextTick(() => {
                 if (window.innerHeight - 9 * rate < 4 * rate) {
                    document.querySelector('html').className = ' html'

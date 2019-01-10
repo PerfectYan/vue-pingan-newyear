@@ -7,7 +7,9 @@ import About from '@/views/About.vue'
 import Select from '@/views/Select.vue'
 import Greetings from '@/views/Greetings.vue'
 import Preview from '@/views/Preview.vue'
-import Result from '@/views/Result_b.vue'
+import Result from '@/views/Result.vue'
+import RedPacket from '@/views/RedPacket.vue'
+
 
 Vue.use(Router);
 
@@ -26,9 +28,6 @@ export default new Router({
         {
             path: '/about',
             name: 'about',
-            // route level code-splitting
-            // this generates a separate chunk (about.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
             component: About
         },
         {
@@ -51,5 +50,10 @@ export default new Router({
             name: 'result',
             component: Result
         },
+        {
+            path: '/redPacket',
+            name: 'redPacket',
+            component: RedPacket
+        }
     ]
 })

@@ -8,7 +8,7 @@
             <div class="btm-des-wrap">
                 <strong>{{ date || '除夕夜' }}</strong>
                 <p class="font26">健康行大运</p>
-                <p class="wechat-id">微信ID：xxx</p>
+                <p class="wechat-id">{{nickName}}</p>
                 <div v-show="!!bless" class="des-wrap">
                     <div class="bless">{{ bless }}</div>
                     <span class="icon icon1"></span>
@@ -17,36 +17,38 @@
 
             </div>
         </div>
-        <div class="botao"></div>
-        <div class="btn btn-left" @click="goGreetings">重新上传</div>
-        <div class="btn btn-right" @click="getPosters">生成海报</div>
-        <div class="btn-wrap">
-             <!--<div class="btn go-home" @click="goHome">返回首页</div>-->
-             <div class="btn btn-about" @click="goAbout">即刻生财</div>
-        </div>
+        <!-- <div class="botao"></div> -->
+        <div class="save">长按保存图片</div>
+       <div class="btn btn-right" @click="goRedPacket">即刻生财</div>
+
         <img :src="img_path" class="post-img">
+
+        <Toast v-if="isShowToast" :content="content"></Toast>
     </div>
 </template>
 
 <script>
     // @ is an alias to /src
-    import Header from '@/components/Header.vue'
+    import Header from '@/components/Header.vue';
+    import Toast from "@/components/toast.vue";
     import {getPosters} from '@/api/'
 
     export default {
         name: 'Loading',
         components: {
-            Header
+            Header, Toast
         },
         computed: {
             cls() {
                 let uploadData = sessionStorage.getItem('uploadData');
                 if (uploadData) {
                     uploadData = JSON.parse(uploadData);
-                    this.pic_type = uploadData.pic_type;
-                    this.imgfile = uploadData.img_path;
+                    let {pic_type, img_path, nickname } = uploadData;
+                    this.pic_type = pic_type;
+                    this.imgfile = img_path;
+                    this.nickName = nickname+': 祝愿您';
                     // 1汉服男 2中山装男 3汉服女 4旗袍女
-                    switch (this.pic_type) {
+                    switch (pic_type) {
                         case  1:
                             return 'man_hanfu';
                             break;
@@ -75,11 +77,14 @@
                 bless: '',
                 date: '',
                 imgfile: '',
-                pic_type: '',
+                nickName: '',
                 img_path: ''
             }
         },
         methods: {
+            goRedPacket() {
+                this.$router.push('/redPacket');
+            },
             showToast(content){
                 this.isShowToast =  true;
                 this.content = content;
@@ -89,14 +94,8 @@
                     this.isShowToast =  false;
                 }, 2000);
             },
-            goHome(){
-                this.$router.push('/');
-            },
             goGreetings() {
                 this.$router.push('/greetings');
-            },
-            goAbout() {
-                this.$router.push('/about');
             },
             getPosters() {
                 if (this.imgfile == '') {
@@ -115,9 +114,10 @@
                 formData.append('year_date', this.date);
                 formData.append('imgfile', sessionStorage.getItem('img_file')||'');
                 formData.append('pic_type', this.pic_type);
-
+                this.showToast('海报生成中···');
                 getPosters(formData).then(res => {
                     sessionStorage.setItem('img_path', res.data.content.img_path);
+                    this.hideToast();
                     this.$router.push('/result');
                 }).catch(error => {
                     let message = error && error.data && error.data.message ? error.data.message : '系统繁忙，请稍后重试'
@@ -141,6 +141,16 @@
 </script>
 
 <style scoped lang="scss">
+     .post-img{
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 198;
+        opacity: 0;
+    }
 
     .html {
         .top-cont {
@@ -171,16 +181,6 @@
         text-align: center;
     }
 
-    .post-img{
-        display: block;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        z-index: 198;
-    }
     .content .logo {
         width: 2.32rem;
         height: 0.4rem;
@@ -216,29 +216,6 @@
         background-size: 100% 100%;
 
     }
-    .btn-wrap{
-        position: absolute;
-        bottom: 0;
-        z-index: 201;
-        width: 100%;
-        height: 3.65rem;
-        padding-top: 0.6rem;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        background: #802721;
-        &::after{
-            content: '长按保存图片';
-            position: absolute;
-            width: 100%;
-            top: 0.4rem;
-            color: #E6C18A;
-            font-size: 0.3rem;
-
-        }
-
-    }
 
     .btn {
         color: #690004;
@@ -249,7 +226,7 @@
         height: 1rem;
         line-height: 0.9rem;
         position: absolute;
-        bottom: 1.4rem;
+        bottom: 1rem;
         z-index: 4;
         background: url('../assets/images/img/btn.png') no-repeat center;
         background-size: contain;
@@ -257,28 +234,30 @@
             left: 0.8rem;
         }
         &.btn-right{
-            right: 0.8rem;
-        }
-        &.go-home{
-            position: static;
-             background-size: 80%;
-        }
-        &.btn-about{
-             position: static;
-              background-size: 80%;
-            // z-index: 201;
-            // left: 50%;
-            // margin-left: -1.325rem;
-            // bottom: .9rem;
+            left: 50%;
+            bottom: 0.5rem;
+            z-index: 200;
+            margin-left: -1.325rem;
         }
     }
+    .save{
+        position: absolute;
+        width: 100%;
+        color: #E6C18A;
+        font-size: 0.3rem;
+        bottom: 2rem;
+        z-index: 200;
+        pointer-events: none; // 可以穿透到下一层， 比如复制遮罩层下的问题
+    }
+
+
 
     .top-cont strong {
         width: 6rem;
         display: block;
         font-size: 0.5rem;
         color: #690004;
-        margin: 0.3rem 0 0;
+        margin: 0.3rem 0 0.05rem;
 
     }
 
@@ -303,14 +282,14 @@
     }
 
     .des-wrap .bless {
-        font-size: 0.22rem;
+        font-size: 0.28rem;
         line-height: 0.5rem;
         color: #690004;
     }
 
     .des-wrap .icon1 {
         position: absolute;
-        left: -0.1rem;
+        left: 0.1rem;
         top: 0;
         width: 0.25rem;
         height: 0.3rem;
@@ -320,7 +299,7 @@
 
     .des-wrap .icon2 {
         position: absolute;
-        right: 0rem;
+        right: 0.2rem;
         bottom: 0;
         width: 0.25rem;
         height: 0.3rem;
@@ -344,14 +323,6 @@
         background-size: contain;
     }
 
-    .save {
-        font-size: 0.24rem;
-        color: #E6C18B;
-        width: 100%;
-        position: absolute;
-        top: 10.1rem;
-    }
-
     .person {
         position: absolute;
         top: 0.9rem;
@@ -362,21 +333,35 @@
         background-position: left top;
         background-size: contain;
     }
-
+// 644*995
     .man_xifu {
-        top: 0.9rem;
+        top: 0.2rem;
+        right: 0;
     }
 
+// 727*979
     .man_hanfu {
-        //top: 0.9rem;
+        top: 0.26rem;
+        right: -0.15rem;
+        width: 3.64rem;
+        height: 4.95rem;
+        background-size: contain;
     }
-
+// 641*780
     .women_hanfu {
-        top: 1.3rem;
+        top: 1.25rem;
+        right: -0.15rem;
+        width: 3.2rem;
+        height: 3.9rem;
+        background-size: contain;
     }
-
+// 530*770
     .women_qipao {
-        //top: 0.9rem;
+        top: 1.3rem;
+        right: 0.1rem;
+        width: 2.65rem;
+        height: 3.85rem;
+        background-size: contain;
     }
 
     .gold {

@@ -1,5 +1,4 @@
-const path = require('path');
-
+const webpack = require('webpack');
 module.exports = {
     // 基本路径
     baseUrl: './',
@@ -14,5 +13,13 @@ module.exports = {
                 data: `@import "@/assets/style/bg-image.scss";`
             }
         }
+    },
+    configureWebpack: {
+        plugins: [
+            new webpack.ProvidePlugin({
+                jQuery: 'jquery',
+                $: 'jquery'
+            })
+        ]
     }
 };
