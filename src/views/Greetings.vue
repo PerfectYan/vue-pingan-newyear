@@ -16,8 +16,8 @@
             </div>
         </div>
 
-        <div v-show="isShowModal" class="botao"></div>
-        <div v-show="isShowModal" class="btn" @click="goPreview">生成祝福</div>
+        <div class="botao"></div>
+        <div class="btn" @click="goPreview">生成祝福</div>
 
         <Toast v-if="isShowToast" :content="content"></Toast>
 
@@ -196,9 +196,7 @@
                     img = new Image();
                 img.crossOrigin = "Anonymous";
                 img.onload = () => {
-                    canvas.height = 185;
-                    canvas.width = 250;
-                    ctx.drawImage(img, 0, 0);
+                    ctx.drawImage(img, 0, 0, 185, 250);
                     let dataURL = canvas.toDataURL("image/png");
                     callback(dataURL);
                     canvas = null;
