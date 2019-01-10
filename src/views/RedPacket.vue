@@ -19,10 +19,12 @@
                     <span>恭喜您获得红包</span>
                 </div>
                 <div class="money-info">
-                    <span><i id="money">88</i>元</span>
+                    <span><i id="money">{{money}}</i>元</span>
                     <span>请到您的微信钱包查看</span>
                 </div>
-                <div class="money-btn" @click="goAbout">步步生财</div>
+                <div class="money-btn" @click="goAbout">
+                    <img src="../assets/images/redpacket/img-10.png" />
+                </div>
             </div>
         </div>
     </div>
@@ -41,7 +43,8 @@
                 iconGold: true,
                 hasCoins: true,
                 isShowToast: '',
-                content: ''
+                content: '',
+                money: ''
             }
         },
         methods: {
@@ -88,7 +91,7 @@
                                         this.querySelector('.setframes').style.animationPlayState = 'paused';
                                         getRedPacket().then((res)=>{
                                             console.log(res);
-                                            this.setResult();
+                                            this.setResult(res.data.content.red_packet);
                                         }).catch(error=>{
                                             this.showToast(error.data.message);
                                             this.hideToast();
@@ -101,7 +104,8 @@
                     }, 500);
                 }, 500);
             },
-            setResult() {
+            setResult(amount) {
+                this.money = amount;
                 this.querySelector('.result').className = 'result fadeOut';
                 this.querySelector('.openRedPacket').style.display = 'block';
                 this.querySelector('.openRedPacket').className = 'openRedPacket fadeIn';
@@ -285,7 +289,7 @@
             background-position: 0 0;
         }
         to {
-            background-position: -4474px 0;
+            background-position: -1491px 0;
         }
     }
 
@@ -294,7 +298,7 @@
             background-position: 0 0;
         }
         to {
-            background-position: -4474px 0;
+            background-position: -1491px 0;
         }
     }
 
@@ -349,13 +353,13 @@
     }
 
     .finish span {
-        width: 1.49rem;
-        height: 1.49rem;
+        width: 100px;
+        height: 100px;
         display: block;
         position: absolute;
         top: 50%;
         left: 50%;
-        margin: 0.46rem 0 0 -0.75rem;
+        margin: 0.46rem 0 0 -50px;
         border-radius: 0;
         background: url('~@/assets/images/redpacket/img-37.png') no-repeat center;
         background-size: cover;
@@ -402,17 +406,6 @@
         z-index: 10;
     }
 
-    /*.money-box span:nth-of-type(2) {*/
-    /*width: 153px;*/
-    /*height: 200px;*/
-    /*top: 110px;*/
-    /*left: 50%;*/
-    /*margin-left: -76px;*/
-    /*z-index: 12;*/
-    /*transform: translateY(150px);*/
-    /*-webkit-transform: translateY(150px);*/
-    /*}*/
-
     .money-box span:nth-of-type(2) {
         width: 3.14rem;
         height: 0.82rem;
@@ -452,27 +445,19 @@
     }
 
     .money-btn {
-        width: 2.65rem;
-        height: 1rem;
-        line-height: 0.9rem;
         position: absolute;
         left: 50%;
-        bottom: 1.4rem;
+        bottom: 150px;
         z-index: 4;
-        margin: 0 0 0 -1.325rem;
-        background: url("../assets/images/img/btn.png") no-repeat center;
-        background-size: contain;
-        color: #690004;
-        font-size: 0.36rem;
-        font-weight: bold;
-        text-align: center;
+        width: 180px;
+        height: 40px;
+        margin: 0 0 0 -90px;
     }
 
     .money-btn img {
         display: block;
-        width: 180px;
-        height: 40px;
-        margin: auto;
+        width: 100%;
+        height: auto;
     }
 
 </style>

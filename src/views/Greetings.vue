@@ -191,17 +191,18 @@
                     that.uploadImg(base64Arr[0]);
                 });
             },
-            convertImgToBase64(url, callback, outputFormat) {
+            convertImgToBase64(url, callback) {
                 let canvas = document.createElement("CANVAS"),
                     ctx = canvas.getContext("2d"),
                     img = new Image();
                 img.crossOrigin = "Anonymous";
                 img.onload = () => {
-                    canvas.height = img.height;
-                    canvas.width = img.width;
+                    canvas.height = 185;
+                    canvas.width = 250;
                     ctx.drawImage(img, 0, 0);
-                    let dataURL = canvas.toDataURL(outputFormat || "image/png");
-                    callback.call(this, dataURL);
+                    let dataURL = canvas.toDataURL("image/png");
+                    alert(dataURL);
+                    callback(dataURL);
                     canvas = null;
                 };
                 img.onerror = () => {

@@ -1,5 +1,6 @@
 <template>
     <div class="about">
+        <div class="logo-r"></div>
         <Header :hasLatch="hasLatch"/>
         <div class="title">
             #步数兑加息，免费抽福利<br>

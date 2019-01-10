@@ -201,12 +201,12 @@
 
      .logo-r{
        position: fixed;
-        top: 0rem;
-        left: 0rem;
+        top: 0;
+        left: 0;
         z-index: 200;
         width: 2rem;
         height: 0.96rem;
-         background: url('./assets//images/common/logoo.png') no-repeat center;
+         background: url('./assets/images/common/logoo.png') no-repeat center;
         background-size: 55%;
     }
 
@@ -221,13 +221,13 @@
         overflow: hidden;
 
         &.playing {
-            background: url('./assets//images//img//playing.png') no-repeat center;
+            background: url('./assets/images/img/playing.png') no-repeat center;
             background-size: contain;
             animation: rotate 4s linear infinite;
         }
 
         &.paused {
-            background: url('./assets//images//img//paused.png') no-repeat center;
+            background: url('./assets/images/img/paused.png') no-repeat center;
             background-size: contain;
         }
 
