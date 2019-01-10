@@ -45,14 +45,32 @@
         },
         methods: {
              showModal(){
-
                 this.isShowModal = true;
             }
+        },
+        mounted(){
+            var rate = window.innerWidth / 7.5;
+            this.$nextTick(() => {
+                if (window.innerHeight - 9 * rate < 4 * rate) {
+                   document.querySelector('html').className = ' html'
+                }
+            })
         }
     }
 </script>
 
 <style scoped lang="scss">
+    .html{
+        .des-wrap{
+           position: relative;
+           top: -0.6rem;
+           margin-bottom: 0;
+        }
+        // .gold-l ,.gold-m , .gold-r
+        .caishen, .man , .woman {
+            transform: scale(0.8);
+        }
+    }
     .top-cont{
         width: 5.65rem;
         height: 5.72rem;

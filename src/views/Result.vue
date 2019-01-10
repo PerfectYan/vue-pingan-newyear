@@ -218,18 +218,16 @@
     }
     .btn-wrap{
         position: absolute;
-        left: 50%;
         bottom: 0;
         z-index: 201;
-        width: 2.65rem;
-        height: 2.65rem;
-        margin-left: -1.43rem;
+        width: 100%;
+        height: 3.65rem;
         padding-top: 0.6rem;
         box-sizing: border-box;
         display: flex;
         align-items: center;
         justify-content: space-around;
-        background: #832621;
+        background: #802721;
         &::after{
             content: '长按保存图片';
             position: absolute;

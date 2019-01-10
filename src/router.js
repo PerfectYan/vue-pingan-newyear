@@ -7,7 +7,7 @@ import About from '@/views/About.vue'
 import Select from '@/views/Select.vue'
 import Greetings from '@/views/Greetings.vue'
 import Preview from '@/views/Preview.vue'
-import Result from '@/views/Result.vue'
+import Result from '@/views/Result_b.vue'
 
 Vue.use(Router);
 
