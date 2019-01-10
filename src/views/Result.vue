@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-         <div class="logo-r"></div> 
+         <div class="logo-r"></div>
         <div class="logo"></div>
         <div class="top-cont">
             <div class="top-bg"></div>
@@ -20,7 +20,7 @@
         </div>
         <!-- <div class="botao"></div> -->
         <div class="save">长按保存图片</div>
-       <div class="btn btn-right" @click="goRedPacket">即刻生财</div>
+       <div class="btn btn-right" @click="goRedPacket">领取红包</div>
 
         <img :src="img_path" class="post-img">
 

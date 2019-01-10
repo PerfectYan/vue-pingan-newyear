@@ -22,7 +22,7 @@
                     <span><i id="money">88</i>元</span>
                     <span>请到您的微信钱包查看</span>
                 </div>
-                <div class="money-btn" @click="goHome"><img src="../assets/images/redpacket/img-10.png"></div>
+                <div class="money-btn" @click="goAbout">步步生财</div>
             </div>
         </div>
     </div>
@@ -54,8 +54,8 @@
                     this.isShowToast =  false;
                 }, 2000);
             },
-            goHome() {
-                this.$router.push('/home');
+            goAbout() {
+                this.$router.push('/about');
             },
             download() {
                 window.location.href = 'https://ulink.lifeapp.pingan.com.cn/index.html?url=pars%3A%2F%2Fpars.pingan.com%2Fact_detail%3Faid%3D%E6%B4%BB%E5%8A%A8id'
@@ -68,7 +68,7 @@
             },
             showResultFinish() {
                 var k = 0;
-                var redPacketTxt = ["红包在手，运气我有！", "X9在向你招手！", "考验运气的时候到了！", "注入念力！呼唤X9！", "见证奇迹的时刻到了！"];
+                var redPacketTxt=["红包在手，运气我有！","考验运气的时候到了！","见证奇迹的时刻到了！"];
                 setTimeout(() => {
                     this.querySelector('.result').style.display = 'block';
                     this.querySelector('.result').className = 'result fadeIn';
@@ -90,7 +90,6 @@
                                             console.log(res);
                                             this.setResult();
                                         }).catch(error=>{
-
                                             this.showToast(error.data.message);
                                             this.hideToast();
                                         });
@@ -453,13 +452,20 @@
     }
 
     .money-btn {
-        width: 100%;
-        height: auto;
+        width: 2.65rem;
+        height: 1rem;
+        line-height: 0.9rem;
         position: absolute;
-        bottom: 72px;
-        left: 0;
-        transform: translateY(200px);
-        -webkit-transform: translateY(200px);
+        left: 50%;
+        bottom: 1.4rem;
+        z-index: 4;
+        margin: 0 0 0 -1.325rem;
+        background: url("../assets/images/img/btn.png") no-repeat center;
+        background-size: contain;
+        color: #690004;
+        font-size: 0.36rem;
+        font-weight: bold;
+        text-align: center;
     }
 
     .money-btn img {

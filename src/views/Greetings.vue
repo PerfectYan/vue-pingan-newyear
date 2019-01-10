@@ -162,6 +162,7 @@
                             this.bless && sessionStorage.setItem("bless", this.bless);
                             this.pic_type = res.data.content.pic_type;
                             this.convertImgToBase64(res.data.content.img_path, res => {
+                                alert(res);
                                 sessionStorage.setItem("img_file", res);
                             });
                             sessionStorage.setItem(
