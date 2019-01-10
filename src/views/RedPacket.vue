@@ -90,7 +90,7 @@
                                             console.log(res);
                                             this.setResult();
                                         }).catch(error=>{
-                                            this.showToast(error.message);
+                                            this.showToast(error.data.message);
                                             this.hideToast();
                                         });
                                     }
@@ -357,12 +357,12 @@
         left: 50%;
         margin: 0.46rem 0 0 -0.75rem;
         border-radius: 0;
-        background: url('~@/assets/images/redpacket/img-37.png') no-repeat;
-        background-size: 100% 100%;
+        background: url('~@/assets/images/redpacket/img-37.png') no-repeat center;
+        background-size: cover;
     }
 
     .finish span:nth-of-type(1) {
-        background: url('~@/assets/images/redpacket/img-36.png') no-repeat;
+        background: url('~@/assets/images/redpacket/img-36.png') no-repeat center;
         background-size: 100% 100%;
         z-index: 99;
     }
