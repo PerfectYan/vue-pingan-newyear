@@ -47,7 +47,7 @@
                     let {pic_type, img_path, nickname } = uploadData;
                     this.pic_type = pic_type;
                     this.imgfile = img_path;
-                    this.nickName = nickname+': 祝愿您';
+                    this.nickName = nickname == '' ? '中国平安: 祝愿您': nickname+': 祝愿您';
                     // 1汉服男 2中山装男 3汉服女 4旗袍女
                     switch (pic_type) {
                         case  1:
